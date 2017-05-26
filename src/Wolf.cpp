@@ -12,11 +12,11 @@ using namespace sf;
 
 Wolf::Wolf(){};
 
-Wolf::Wolf(char island[][25])
+Wolf::Wolf(char island[][21])
 {
     do {
-        X = rand() % 21+2;
-        Y = rand() % 21+2;
+        X = rand() % 20;
+        Y = rand() % 20;
         Points = 10;
         ReproductionAbility = 10;
     }while(island[X][Y] != '.');
@@ -26,7 +26,7 @@ Wolf::Wolf(char island[][25])
     island[X][Y] = 'w';
 }
 
-Wolf::Wolf(int x, int y, char island[][25]){
+Wolf::Wolf(int x, int y, char island[][21]){
     X = x;
     Y = y;
     Points = 10;
@@ -37,13 +37,13 @@ Wolf::Wolf(int x, int y, char island[][25]){
     island[X][Y] = 'w';
 }
 
-bool free(char island[][25], int X, int Y){
+bool free(char island[][21], int X, int Y){
     if (island[X][Y] == 'K' || island[X][Y] == 'A' || island[X][Y] == 'B' || island[X][Y] == 'w' || island[X][Y] == 'C') return false;
 
     else return true;
 }
 
-void Wolf::doMove(char island[][25]){
+void Wolf::doMove(char island[][21]){
     if (getPoints() > 1) {
         int r;      // ÇÌ²ÍÍÀ ÄËß ÇÁÅĞ²ÃÀÍÍß ÂÈÏÀÄÊÎÂÎÃÎ "ÍÀÏĞßÌÊÓ"
         bool flag = true;
@@ -53,7 +53,7 @@ void Wolf::doMove(char island[][25]){
             r = rand() % 8;
             switch (r) {
                 case 0: {
-                    if (X != 2 && Y != 2 && island[X-1][Y-1] != 'f' && free(island, X-1, Y-1)) {
+                    if (X != 0 && Y != 0 && island[X-1][Y-1] != 'f' && free(island, X-1, Y-1)) {
                         cout << "X = " << this->getX() << ", Y = " << this->getY() << endl;
                         starve();
                         if (island[X][Y] == 'B') island[X][Y] = 'f';
@@ -65,7 +65,7 @@ void Wolf::doMove(char island[][25]){
                     } else break;
                 }
                 case 1: {
-                    if (X != 2 && island[X-1][Y] != 'f' && free(island, X-1, Y)) {
+                    if (X != 0 && island[X-1][Y] != 'f' && free(island, X-1, Y)) {
                             cout << "X = " << this->getX() << ", Y = " << this->getY() << endl;
                         starve();
                         if (island[X][Y] == 'B') island[X][Y] = 'f';
@@ -77,7 +77,7 @@ void Wolf::doMove(char island[][25]){
                     } else break;
                 }
                 case 2: {
-                    if (X != 2 && Y != 21 && island[X-1][Y+1] != 'f' && free(island, X-1, Y+1)) {
+                    if (X != 0 && Y != 19 && island[X-1][Y+1] != 'f' && free(island, X-1, Y+1)) {
                             cout << "X = " << this->getX() << ", Y = " << this->getY() << endl;
                         starve();
                         if (island[X][Y] == 'B') island[X][Y] = 'f';
@@ -89,7 +89,7 @@ void Wolf::doMove(char island[][25]){
                     } else break;
                 }
                 case 3: {
-                    if (Y != 21 && island[X][Y+1] != 'f' && free(island, X, Y+1)) {
+                    if (Y != 19 && island[X][Y+1] != 'f' && free(island, X, Y+1)) {
                         cout << "X = " << this->getX() << ", Y = " << this->getY() << endl;
                         starve();
                         if (island[X][Y] == 'B') island[X][Y] = 'f';
@@ -101,7 +101,7 @@ void Wolf::doMove(char island[][25]){
                     } else break;
                 }
                 case 4: {
-                    if (X != 21 && Y != 21 && island[X+1][Y+1] != 'f' && free(island, X+1, Y+1)) {
+                    if (X != 19 && Y != 19 && island[X+1][Y+1] != 'f' && free(island, X+1, Y+1)) {
                             cout << "X = " << this->getX() << ", Y = " << this->getY() << endl;
                         starve();
                         if (island[X][Y] == 'B') island[X][Y] = 'f';
@@ -113,7 +113,7 @@ void Wolf::doMove(char island[][25]){
                     } else break;
                 }
                 case 5: {
-                    if (X != 21 && island[X+1][Y] != 'f' && free(island, X+1, Y)) {
+                    if (X != 19 && island[X+1][Y] != 'f' && free(island, X+1, Y)) {
                             cout << "X = " << this->getX() << ", Y = " << this->getY() << endl;
                         starve();
                         if (island[X][Y] == 'B') island[X][Y] = 'f';
@@ -125,7 +125,7 @@ void Wolf::doMove(char island[][25]){
                     } else break;
                 }
                 case 6: {
-                    if (X != 21 && Y != 2 && island[X+1][Y-1] != 'f' && free(island, X+1, Y-1)) {
+                    if (X != 19 && Y != 0 && island[X+1][Y-1] != 'f' && free(island, X+1, Y-1)) {
                             cout << "X = " << this->getX() << ", Y = " << this->getY() << endl;
                         starve();
                         if (island[X][Y] == 'B') island[X][Y] = 'f';
@@ -137,7 +137,7 @@ void Wolf::doMove(char island[][25]){
                     } else break;
                 }
                 case 7: {
-                    if (Y != 2 && island[X][Y-1] != 'f' && free(island, X, Y-1)) {
+                    if (Y != 0 && island[X][Y-1] != 'f' && free(island, X, Y-1)) {
                             cout << "X = " << this->getX() << ", Y = " << this->getY() << endl;
                         starve();
                         if (island[X][Y] == 'B') island[X][Y] = 'f';
@@ -154,7 +154,7 @@ void Wolf::doMove(char island[][25]){
     else starve();
 }
 
-void Wolf::doStep(vector<Rabbit>&rabbits, vector <Wolfess>&wolfess, char island[][25]) {
+void Wolf::doStep(vector<Rabbit>&rabbits, vector <Wolfess>&wolfess, char island[][21]) {
     if (ReproductionAbility < 10) ReproductionAbility += 1;
        // ÏĞÎÕÎÄÈÌÎÑÜ ÏÎ ÂÅÊÒÎĞÓ Ç ÊĞÎËÈÊ²Â
     for (int i = 0; i < rabbits.size(); i++){

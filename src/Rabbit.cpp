@@ -9,11 +9,11 @@
 using std::cout;
 using std::endl;
 
-Rabbit::Rabbit(char island[][25]){
+Rabbit::Rabbit(char island[][21]){
     do
     {
-        X = rand()%20+1;
-        Y = rand()%20+1;
+        X = rand()%20;
+        Y = rand()%20;
     }while(island[X][Y] != '.');
 
     cout << "X = " << X << ", Y = " << Y << endl;
@@ -22,7 +22,7 @@ Rabbit::Rabbit(char island[][25]){
     isReadyToGiveLife = false;
 }
 
-Rabbit::Rabbit(int x, int y, char island[][25]){
+Rabbit::Rabbit(int x, int y, char island[][21]){
     X = x;
     Y = y;
 
@@ -32,13 +32,13 @@ Rabbit::Rabbit(int x, int y, char island[][25]){
     isReadyToGiveLife = false;
 }
 
-bool freeR(char island[][25], int X, int Y){
+bool freeR(char island[][21], int X, int Y){
     if (island[X][Y] == 'r' || island[X][Y] == 'C' || island[X][Y] == 'A' || island[X][Y] == 'K') return false;
 
     else return true;
 }
 
-void Rabbit::doStep(const vector<Rabbit> &rabbits, char island[][25]) {
+void Rabbit::doStep(const vector<Rabbit> &rabbits, char island[][21]) {
     int r;
     bool flag = true;
     r = rand() % 9;
@@ -47,7 +47,7 @@ void Rabbit::doStep(const vector<Rabbit> &rabbits, char island[][25]) {
             r = rand() % 8;
             switch (r) {
                 case 0: {
-                    if (X != 2 && Y != 2 && freeR(island, X-1, Y-1)) {
+                    if (X != 0 && Y != 0 && freeR(island, X-1, Y-1)) {
                         if (island[X][Y] == 'K') {
                             cout << "kekik (K - > W), " << X << ' ' << Y << " to " << X-1 << ' ' << Y-1 << "\n";
                             island[X][Y] = 'w';
@@ -70,7 +70,7 @@ void Rabbit::doStep(const vector<Rabbit> &rabbits, char island[][25]) {
                     } else break;
                 }
                 case 1: {
-                    if (X != 2 && freeR(island, X-1, Y)) {
+                    if (X != 0 && freeR(island, X-1, Y)) {
                         if (island[X][Y] == 'K') {
                             cout << "kekik (K - > W), " << X << ' ' << Y << " to " << X-1 << ' ' << Y << "\n";
                             island[X][Y] = 'w';
@@ -93,7 +93,7 @@ void Rabbit::doStep(const vector<Rabbit> &rabbits, char island[][25]) {
                     } else break;
                 }
                 case 2: {
-                    if (X != 2 && Y != 21 && freeR(island, X-1, Y+1)) {
+                    if (X != 0 && Y != 19 && freeR(island, X-1, Y+1)) {
                         if (island[X][Y] == 'K') {
                             cout << "kekik (K - > W), " << X << ' ' << Y << " to " << X-1 << ' ' << Y+1 << "\n";
                             island[X][Y] = 'w';
@@ -116,7 +116,7 @@ void Rabbit::doStep(const vector<Rabbit> &rabbits, char island[][25]) {
                     } else break;
                 }
                 case 3: {
-                    if (Y != 21 && freeR(island, X, Y+1)) {
+                    if (Y != 19 && freeR(island, X, Y+1)) {
                         if (island[X][Y] == 'K') {
                             cout << "kekik (K - > W), " << X << ' ' << Y << " to " << X << ' ' << Y+1 << "\n";
                             island[X][Y] = 'w';
@@ -139,7 +139,7 @@ void Rabbit::doStep(const vector<Rabbit> &rabbits, char island[][25]) {
                     } else break;
                 }
                 case 4: {
-                    if (X != 21 && Y != 21 && freeR(island, X+1, Y+1)) {
+                    if (X != 19 && Y != 19 && freeR(island, X+1, Y+1)) {
                         if (island[X][Y] == 'K') {
                             cout << "kekik (K - > W), " << X << ' ' << Y << " to " << X+1 << ' ' << Y+1 << "\n";
                             island[X][Y] = 'w';
@@ -162,7 +162,7 @@ void Rabbit::doStep(const vector<Rabbit> &rabbits, char island[][25]) {
                     } else break;
                 }
                 case 5: {
-                    if (X != 21 && freeR(island, X+1, Y)) {
+                    if (X != 19 && freeR(island, X+1, Y)) {
                         if (island[X][Y] == 'K') {
                             cout << "kekik (K - > W), " << X << ' ' << Y << " to " << X+1 << ' ' << Y << "\n";
                             island[X][Y] = 'w';
@@ -185,7 +185,7 @@ void Rabbit::doStep(const vector<Rabbit> &rabbits, char island[][25]) {
                     } else break;
                 }
                 case 6: {
-                    if (X != 21 && Y != 2 && freeR(island, X+1, Y-1)) {
+                    if (X != 19 && Y != 0 && freeR(island, X+1, Y-1)) {
                         if (island[X][Y] == 'K') {
                             cout << "kekik (K - > W), " << X << ' ' << Y << " to " << X+1 << ' ' << Y-1 << "\n";
                             island[X][Y] = 'w';
@@ -208,7 +208,7 @@ void Rabbit::doStep(const vector<Rabbit> &rabbits, char island[][25]) {
                     } else break;
                 }
                 case 7: {
-                    if (Y != 2 && freeR(island, X, Y-1)) {
+                    if (Y != 0 && freeR(island, X, Y-1)) {
                         if (island[X][Y] == 'K') {
                             cout << "kekik (K - > W), " << X << ' ' << Y << " to " << X << ' ' << Y-1 << "\n";
                             island[X][Y] = 'w';

@@ -15,7 +15,47 @@
 using namespace std;
 using namespace sf;
 
+Sprite background;
+
 RenderWindow window(VideoMode(768,768), "Wolves Island");
+
+void menu(){
+    window.setActive(true);
+    Texture menuBackground, startTexture;
+    menuBackground.loadFromFile("images/menuback.jpg");
+    startTexture.loadFromFile("images/start.png");
+    Sprite menuMainSprite(menuBackground), startSprite(startTexture);
+    startSprite.setPosition(290, 340);
+
+    char choice;
+
+    while (true){
+
+        window.clear();
+
+        choice = '0';
+
+        if (IntRect(290, 340, 225, 17).contains(Mouse::getPosition(window))){
+            cout << "keksik\n";
+            startSprite.setColor(Color::Blue);
+            choice = '1';
+        }
+
+        if (Mouse::isButtonPressed(Mouse::Left)){
+            if (choice == '1'){
+                cout << "batman\n";
+                window.clear();
+                window.setActive(false);
+                break;
+        }
+        }
+
+        window.draw(menuMainSprite);
+        window.draw(startSprite);
+
+        window.display();
+    }
+    }
 
 void ShowConsoleCursor(bool showFlag)
 {
@@ -28,7 +68,7 @@ void ShowConsoleCursor(bool showFlag)
     SetConsoleCursorInfo(out, &cursorInfo);
 }
 
-bool freeCell(char island[][25], int X, int Y, int choice){
+bool freeCell(char island[][21], int X, int Y, int choice){
     if (choice == 0){
         if (island[X][Y] == 'r' || island[X][Y] == '.') return true;
         else return false;
@@ -42,134 +82,134 @@ bool freeCell(char island[][25], int X, int Y, int choice){
     return 0;
 }
 
-bool isThereAFreeCell(char island[][25], int X, int Y, int choice) {
+bool isThereAFreeCell(char island[][21], int X, int Y, int choice) {
     if (choice == 0){
-        if (X != 2 && Y != 2 && freeCell(island, X-1, Y-1, choice)) return true;
+        if (X != 0 && Y != 0 && freeCell(island, X-1, Y-1, choice)) return true;
 
-        else if (X != 2 && freeCell(island, X-1, Y, choice)) return true;
-        else if (X != 2 && Y != 21 && freeCell(island, X-1, Y+1, choice)) return true;
-        else if (Y != 21 && freeCell(island, X, Y+1, choice)) return true;
-        else if (X != 21 && Y != 21 && freeCell(island, X+1, Y+1, choice)) return true;
-        else if (X != 21 && freeCell(island, X+1, Y, choice)) return true;
-        else if (X != 21 && Y != 2 && freeCell(island, X+1, Y-1, choice)) return true;
-        else if (Y != 2 && freeCell(island, X, Y-1, choice)) return true;
+        else if (X != 0 && freeCell(island, X-1, Y, choice)) return true;
+        else if (X != 0 && Y != 19 && freeCell(island, X-1, Y+1, choice)) return true;
+        else if (Y != 19 && freeCell(island, X, Y+1, choice)) return true;
+        else if (X != 19 && Y != 19 && freeCell(island, X+1, Y+1, choice)) return true;
+        else if (X != 19 && freeCell(island, X+1, Y, choice)) return true;
+        else if (X != 19 && Y != 0 && freeCell(island, X+1, Y-1, choice)) return true;
+        else if (Y != 0 && freeCell(island, X, Y-1, choice)) return true;
     }
 
     if (choice == 1) {
-        if (X != 2 && Y != 2 && freeCell(island, X-1, Y-1, choice)) return true;
+        if (X != 0 && Y != 0 && freeCell(island, X-1, Y-1, choice)) return true;
 
-        else if (X != 2 && freeCell(island, X-1, Y, choice)) return true;
-        else if (X != 2 && Y != 21 && freeCell(island, X-1, Y+1, choice)) return true;
-        else if (Y != 21 && freeCell(island, X, Y+1, choice)) return true;
-        else if (X != 21 && Y != 21 && freeCell(island, X+1, Y+1, choice)) return true;
-        else if (X != 21 && freeCell(island, X+1, Y, choice)) return true;
-        else if (X != 21 && Y != 2 &&freeCell(island, X+1, Y-1, choice)) return true;
-        else if (Y != 2 && freeCell(island, X, Y-1, choice)) return true;
+        else if (X != 0 && freeCell(island, X-1, Y, choice)) return true;
+        else if (X != 0 && Y != 19 && freeCell(island, X-1, Y+1, choice)) return true;
+        else if (Y != 19 && freeCell(island, X, Y+1, choice)) return true;
+        else if (X != 19 && Y != 19 && freeCell(island, X+1, Y+1, choice)) return true;
+        else if (X != 19 && freeCell(island, X+1, Y, choice)) return true;
+        else if (X != 19 && Y != 0 &&freeCell(island, X+1, Y-1, choice)) return true;
+        else if (Y != 0 && freeCell(island, X, Y-1, choice)) return true;
 
     }
     else if (choice == 2){
-        if (X != 2 && Y != 2 && (island[X-1][Y-1] == 'f' || island[X-1][Y-1] == 'w')) return true;
+        if (X != 0 && Y != 0 && (island[X-1][Y-1] == 'f' || island[X-1][Y-1] == 'w')) return true;
 
-        else if (X != 2 && (island[X-1][Y] == 'f' || island[X-1][Y] == 'w' || island[X-1][Y] == '.')) return true;
-        else if (X != 2 && Y != 21 && (island[X-1][Y+1] == 'f' || island[X-1][Y+1] == 'w' || island[X-1][Y+1] == '.')) return true;
-        else if (Y != 21 && (island[X][Y+1] == 'f' || island[X][Y+1] == 'w' || island[X][Y+1] == '.')) return true;
-        else if (X != 21 && Y != 21 && (island[X+1][Y+1] == 'f' || island[X+1][Y+1] == 'w' || island[X+1][Y+1] == '.')) return true;
-        else if (X != 21 && (island[X+1][Y] == 'f' || island[X+1][Y] == 'w' || island[X+1][Y] == '.')) return true;
-        else if (X != 21 && Y != 2 && (island[X+1][Y-1] == 'f' || island[X+1][Y-1] == 'w' || island[X+1][Y-1] == '.')) return true;
-        else if (Y != 2 && (island[X][Y-1] == 'f' || island[X][Y-1] == 'w' || island[X][Y-1] == '.')) return true;
+        else if (X != 0 && (island[X-1][Y] == 'f' || island[X-1][Y] == 'w' || island[X-1][Y] == '.')) return true;
+        else if (X != 0 && Y != 19 && (island[X-1][Y+1] == 'f' || island[X-1][Y+1] == 'w' || island[X-1][Y+1] == '.')) return true;
+        else if (Y != 19 && (island[X][Y+1] == 'f' || island[X][Y+1] == 'w' || island[X][Y+1] == '.')) return true;
+        else if (X != 19 && Y != 19 && (island[X+1][Y+1] == 'f' || island[X+1][Y+1] == 'w' || island[X+1][Y+1] == '.')) return true;
+        else if (X != 19 && (island[X+1][Y] == 'f' || island[X+1][Y] == 'w' || island[X+1][Y] == '.')) return true;
+        else if (X != 19 && Y != 0 && (island[X+1][Y-1] == 'f' || island[X+1][Y-1] == 'w' || island[X+1][Y-1] == '.')) return true;
+        else if (Y != 0 && (island[X][Y-1] == 'f' || island[X][Y-1] == 'w' || island[X][Y-1] == '.')) return true;
 
     }
 
     else if (choice == 3){
-        if (X != 2 && Y != 2 && island[X-1][Y-1] == '.') return true;
+        if (X != 0 && Y != 0 && island[X-1][Y-1] == '.') return true;
 
-        else if (X != 2 && island[X-1][Y] == '.') return true;
-        else if (X != 2 && Y != 21 && island[X-1][Y+1] == '.') return true;
-        else if (Y != 21 && island[X][Y+1] == '.') return true;
-        else if (X != 21 && Y != 21 && island[X+1][Y+1] == '.') return true;
-        else if (X != 21 && island[X+1][Y] == '.') return true;
-        else if (X != 21 && Y != 2 && island[X+1][Y-1] == '.') return true;
-        else if (Y != 2 && island[X][Y-1] == '.' ) return true;
+        else if (X != 0 && island[X-1][Y] == '.') return true;
+        else if (X != 0 && Y != 19 && island[X-1][Y+1] == '.') return true;
+        else if (Y != 19 && island[X][Y+1] == '.') return true;
+        else if (X != 19 && Y != 19 && island[X+1][Y+1] == '.') return true;
+        else if (X != 19 && island[X+1][Y] == '.') return true;
+        else if (X != 19 && Y != 0 && island[X+1][Y-1] == '.') return true;
+        else if (Y != 0 && island[X][Y-1] == '.' ) return true;
     }
 
     return false;
 }
 
-void Born(vector <Rabbit> &rabbits, char island[][25], int number){
+void Born(vector <Rabbit> &rabbits, char island[][21], int number){
     for (int i = 0; i < number; i++){
         rabbits.push_back(Rabbit(island));
     }
 }
 
-void Born(vector <Wolf> &wolves, char island[][25], int number){
+void Born(vector <Wolf> &wolves, char island[][21], int number){
     for (int i = 0; i < number; i++){
         wolves.push_back(Wolf(island));
     }
 }
 
-void Born(vector <Wolfess> &wolfess, char island[][25], int number){
+void Born(vector <Wolfess> &wolfess, char island[][21], int number){
     for (int i = 0; i < number; i++){
         wolfess.push_back(Wolfess(island));
     }
 }
 
-void Birth(vector <Rabbit> &rabbits, char island[][25], int X, int Y){
+void Birth(vector <Rabbit> &rabbits, char island[][21], int X, int Y){
     int r;
     cout << "cheeki\n";
     while (true) {
         r = rand()%8;
         switch(r) {
             case 0: {
-                if (X != 2 && Y != 2 && island[X-1][Y-1] == '.'){
+                if (X != 0 && Y != 0 && island[X-1][Y-1] == '.'){
                     rabbits.push_back(Rabbit(X-1, Y-1, island));
                     return;
                 }
                 else break;
             }
             case 1: {
-                if (X != 2 && island[X-1][Y] == '.'){
+                if (X != 0 && island[X-1][Y] == '.'){
                     rabbits.push_back(Rabbit(X-1, Y, island));
                     return;
                 }
                 else break;
             }
             case 2: {
-                if (X != 2 && Y != 21 && island[X-1][Y+1] == '.'){
+                if (X != 0 && Y != 19 && island[X-1][Y+1] == '.'){
                     rabbits.push_back(Rabbit(X-1, Y+1, island));
                     return;
                 }
                 else break;
             }
             case 3: {
-                if (Y != 21 && island[X][Y+1] == '.'){
+                if (Y != 19 && island[X][Y+1] == '.'){
                     rabbits.push_back(Rabbit(X, Y+1, island));
                     return;
                 }
                 else break;
             }
             case 4: {
-                if (X != 21 && Y != 21 && island[X+1][Y+1] == '.'){
+                if (X != 19 && Y != 19 && island[X+1][Y+1] == '.'){
                     rabbits.push_back(Rabbit(X+1, Y+1, island));
                     return;
                 }
                 else break;
             }
             case 5: {
-                if (X != 21 && island[X+1][Y] == '.'){
+                if (X != 19 && island[X+1][Y] == '.'){
                     rabbits.push_back(Rabbit(X+1, Y, island));
                     return;
                 }
                 else break;
             }
             case 6: {
-                if (X != 21 && Y != 2 && island[X+1][Y-1] == '.'){
+                if (X != 19 && Y != 0 && island[X+1][Y-1] == '.'){
                     rabbits.push_back(Rabbit(X+1, Y-1, island));
                     return;
                 }
                 else break;
             }
             case 7: {
-                if (Y != 2 && island[X][Y-1] == '.'){
+                if (Y != 0 && island[X][Y-1] == '.'){
                     rabbits.push_back(Rabbit(X, Y-1, island));
                     return;
                 }
@@ -179,13 +219,13 @@ void Birth(vector <Rabbit> &rabbits, char island[][25], int X, int Y){
     }
 }
 
-void Birth(vector <Wolfess> &wolfess, vector <Wolf>&wolves, char island[][25], int X, int Y){
+void Birth(vector <Wolfess> &wolfess, vector <Wolf>&wolves, char island[][21], int X, int Y){
     int r;
     while (true) {
         r = rand()%8;
         switch(r) {
             case 0: {
-                if (X != 2 && Y != 2 && island[X-1][Y-1] == '.'){
+                if (X != 0 && Y != 0 && island[X-1][Y-1] == '.'){
                     r = rand()%2;
                     if (r == 0) wolfess.push_back(Wolfess(X-1, Y-1, island));
                     else wolves.push_back(Wolf(X-1, Y-1, island));
@@ -194,7 +234,7 @@ void Birth(vector <Wolfess> &wolfess, vector <Wolf>&wolves, char island[][25], i
                 else break;
             }
             case 1: {
-                if (X != 2 && island[X-1][Y] == '.'){
+                if (X != 0 && island[X-1][Y] == '.'){
                     r = rand()%2;
                     if (r == 0) wolfess.push_back(Wolfess(X-1, Y, island));
                     else wolves.push_back(Wolf(X-1, Y, island));
@@ -203,7 +243,7 @@ void Birth(vector <Wolfess> &wolfess, vector <Wolf>&wolves, char island[][25], i
                 else break;
             }
             case 2: {
-                if (X != 2 && Y != 21 && island[X-1][Y+1] == '.'){
+                if (X != 0 && Y != 19 && island[X-1][Y+1] == '.'){
                     r = rand()%2;
                     if (r == 0) wolfess.push_back(Wolfess(X-1, Y+1, island));
                     else wolves.push_back(Wolf(X-1, Y+1, island));
@@ -212,7 +252,7 @@ void Birth(vector <Wolfess> &wolfess, vector <Wolf>&wolves, char island[][25], i
                 else break;
             }
             case 3: {
-                if (Y != 21 && island[X][Y+1] == '.'){
+                if (Y != 19 && island[X][Y+1] == '.'){
                     r = rand()%2;
                     if (r == 0) wolfess.push_back(Wolfess(X, Y+1, island));
                     else wolves.push_back(Wolf(X, Y+1, island));
@@ -221,7 +261,7 @@ void Birth(vector <Wolfess> &wolfess, vector <Wolf>&wolves, char island[][25], i
                 else break;
             }
             case 4: {
-                if (X != 21 && Y != 21 && island[X+1][Y+1] == '.'){
+                if (X != 19 && Y != 19 && island[X+1][Y+1] == '.'){
                     r = rand()%2;
                     if (r == 0) wolfess.push_back(Wolfess(X+1, Y+1, island));
                     else wolves.push_back(Wolf(X+1, Y+1, island));
@@ -230,7 +270,7 @@ void Birth(vector <Wolfess> &wolfess, vector <Wolf>&wolves, char island[][25], i
                 else break;
             }
             case 5: {
-                if (X != 21 && island[X+1][Y] == '.'){
+                if (X != 19 && island[X+1][Y] == '.'){
                     r = rand()%2;
                     if (r == 0) wolfess.push_back(Wolfess(X+1, Y, island));
                     else wolves.push_back(Wolf(X+1, Y, island));
@@ -239,7 +279,7 @@ void Birth(vector <Wolfess> &wolfess, vector <Wolf>&wolves, char island[][25], i
                 else break;
             }
             case 6: {
-                if (X != 21 && Y != 2 && island[X+1][Y-1] == '.'){
+                if (X != 19 && Y != 0 && island[X+1][Y-1] == '.'){
                     r = rand()%2;
                     if (r == 0) wolfess.push_back(Wolfess(X+1, Y-1, island));
                     else wolves.push_back(Wolf(X+1, Y-1, island));
@@ -248,7 +288,7 @@ void Birth(vector <Wolfess> &wolfess, vector <Wolf>&wolves, char island[][25], i
                 else break;
             }
             case 7: {
-                if (Y != 2 && island[X][Y-1] == '.'){
+                if (Y != 0 && island[X][Y-1] == '.'){
                     r = rand()%2;
                     if (r == 0) wolfess.push_back(Wolfess(X, Y-1, island));
                     else wolves.push_back(Wolf(X, Y-1, island));
@@ -263,11 +303,12 @@ void Birth(vector <Wolfess> &wolfess, vector <Wolf>&wolves, char island[][25], i
 void refreshMap(Sprite &sMap){
     window.setActive(true);
     window.clear();
+    window.draw(background);
     for (int i = 0; i < HEIGHT; i++){
-        for (int j = 0; j < WIDTH; j++){
+        for (int j = 0; j < HEIGHT; j++){
             if (island[i][j] == '.') sMap.setTextureRect(IntRect(224, 0, 32, 32));
-            else if (island[i][j] == 'W') sMap.setTextureRect(IntRect(256, 0, 32, 32));
-            else if (island[i][j] == 'S') sMap.setTextureRect(IntRect(288, 0, 32, 32));
+            //else if (island[i][j] == 'W') sMap.setTextureRect(IntRect(256, 0, 32, 32));
+            //else if (island[i][j] == 'S') sMap.setTextureRect(IntRect(288, 0, 32, 32));
             else if (island[i][j] == 'w') sMap.setTextureRect(IntRect(0, 0, 32, 32));
             else if (island[i][j] == 'f') sMap.setTextureRect(IntRect(32, 0, 32, 32));
             else if (island[i][j] == 'r') sMap.setTextureRect(IntRect(64, 0, 32, 32));
@@ -276,7 +317,7 @@ void refreshMap(Sprite &sMap){
             else if (island[i][j] == 'C') sMap.setTextureRect(IntRect(160, 0, 32, 32));
             else if (island[i][j] == 'A') sMap.setTextureRect(IntRect(192, 0, 32, 32));
 
-            sMap.setPosition(j*32, i*32);
+            sMap.setPosition((j+2)*32, (i+2)*32);
             window.draw(sMap);
         }
     }
@@ -284,7 +325,30 @@ void refreshMap(Sprite &sMap){
     window.setActive(false);
 }
 
+void w_playSound(int wf_size, int w_fixed_size, int w_size, vector <Wolfess>&wolfess){
+    if (wf_size < wolfess.size()){
+            SoundBuffer buffer;
+            buffer.loadFromFile("sounds/wolf_fidget.wav");
+            Sound sound(buffer);
+            sound.play();
+            Sleep(3000);
+    }
+    else if (w_fixed_size < w_size){
+        SoundBuffer buffer;
+        buffer.loadFromFile("sounds/wolf_fidget.wav");
+        Sound sound(buffer);
+        sound.play();
+        Sleep(3000);
+    }
+}
+
 int main() {
+    Image icon;
+    icon.loadFromFile("images/icon.png");
+    window.setIcon(32, 32, icon.getPixelsPtr());
+
+    window.setActive(false);
+    menu();
     srand(time(NULL));
     ShowConsoleCursor(false);
     system("color F9");
@@ -303,13 +367,12 @@ int main() {
     Born (wolfess, island, 15);
     Born(rabbits, island, 20);
 
-    Texture tMap;
+    Texture tMap, bgrt;
     tMap.loadFromFile("images/map3.png");
+    bgrt.loadFromFile("images/background.png");
     Sprite sMap;
     sMap.setTexture(tMap);
-    Image icon;
-    icon.loadFromFile("images/icon.png");
-    window.setIcon(32, 32, icon.getPixelsPtr());
+    background.setTexture(bgrt);
 
     Thread graphicsThread(&refreshMap, sMap);
 
@@ -323,13 +386,13 @@ int main() {
         //_getch();
         Sleep(300);
         refreshMap(sMap);
-    window.setActive(false);
-        _getch();
+        window.setActive(false);
     Music music;
     music.openFromFile("sounds/music.wav");
     music.play();
-    music.setVolume(10);
+    music.setVolume(5);
     music.setLoop(true);
+    Thread wSound(&w_playSound, 1, 2, 3, wolfess);
     while (window.isOpen()){
     system("cls");
     for (int i = 0; i < HEIGHT; i++){
@@ -358,12 +421,13 @@ int main() {
                     i--;
                 }
             }
+            graphicsThread.launch();
         }
         //_getch();
         //window.clear();
         //refreshMap(sMap);
-        graphicsThread.launch();
-        Sleep(300);
+        //graphicsThread.launch();
+        //Sleep(300);
         //window.display();
 
         if (w_fixed_size > w_size){
@@ -374,6 +438,7 @@ int main() {
             Sleep(1200);
         }
 
+        wSound.launch();
         if (wf_size < wolfess.size()){
             SoundBuffer buffer;
             buffer.loadFromFile("sounds/wolf_fidget.wav");
@@ -424,14 +489,15 @@ int main() {
                     }
                 }
             }
+            graphicsThread.launch();
         }
         //_getch();
         //window.clear();
         //refreshMap(sMap);
         //window.display();
 
-        graphicsThread.launch();
-        Sleep(300);
+        //graphicsThread.launch();
+        //Sleep(300);
 
         if (r_size < rabbits.size()){
             SoundBuffer buffer;
@@ -462,14 +528,15 @@ int main() {
                 wf_size--;
                 i--;
             }
+            graphicsThread.launch();
         }
         //_getch();
         //window.clear();
         //refreshMap(sMap);
         //window.display();
 
-        graphicsThread.launch();
-        Sleep(300);
+        //graphicsThread.launch();
+        //Sleep(300);
 
         if (wf_size < wf_fixed_size){
             SoundBuffer buffer;

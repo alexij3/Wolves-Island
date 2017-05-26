@@ -5,11 +5,11 @@
 
 using namespace std;
 
-Wolfess::Wolfess(char island[][25])
+Wolfess::Wolfess(char island[][21])
 {
     do {
-        X = rand() % 21+2;
-        Y = rand() % 21+2;
+        X = rand() % 20;
+        Y = rand() % 20;
         Points = 10;
         ReproductionAbility = 10;
     }while(island[X][Y] != '.');
@@ -18,7 +18,7 @@ Wolfess::Wolfess(char island[][25])
     isReadyToGiveLife = false;
 }
 
-Wolfess::Wolfess(int x, int y, char island[][25]){
+Wolfess::Wolfess(int x, int y, char island[][21]){
     X = x;
     Y = y;
     Points = 10;
@@ -29,13 +29,13 @@ Wolfess::Wolfess(int x, int y, char island[][25]){
 }
 
 
-bool freeW(char island[][25], int X, int Y){
+bool freeW(char island[][21], int X, int Y){
     if (island[X][Y] == 'f' || island[X][Y] == 'A' || island[X][Y] == 'B' || island[X][Y] == 'C' || island[X][Y] == 'K') return false;
 
     else return true;
 }
 
-void Wolfess::doMove(char island[][25]){
+void Wolfess::doMove(char island[][21]){
         if (getPoints() > 1) {
         int r;      // ÇÌ²ÍÍÀ ÄËß ÇÁÅĞ²ÃÀÍÍß ÂÈÏÀÄÊÎÂÎÃÎ "ÍÀÏĞßÌÊÓ"
         bool flag = true;
@@ -45,7 +45,7 @@ void Wolfess::doMove(char island[][25]){
             switch (r) {
                 case 0: {
                     //cout << "another cell: " << island[X-1][Y-1] << endl;
-                    if (X != 2 && Y != 2 && freeW(island, X-1, Y-1)) {
+                    if (X != 0 && Y != 0 && freeW(island, X-1, Y-1)) {
                         starve();
                         if (island[X][Y] == 'A') island[X][Y] = 'K';
                         else if (island[X][Y] == 'B') island[X][Y] = 'w';
@@ -59,7 +59,7 @@ void Wolfess::doMove(char island[][25]){
                 }
                 case 1: {
                     //cout << "another cell: " << island[X-1][Y] << endl;
-                    if (X != 2 && freeW(island, X-1, Y)) {
+                    if (X != 0 && freeW(island, X-1, Y)) {
                         starve();
                         if (island[X][Y] == 'A') island[X][Y] = 'K';
                         else if (island[X][Y] == 'B') island[X][Y] = 'w';
@@ -73,7 +73,7 @@ void Wolfess::doMove(char island[][25]){
                 }
                 case 2: {
                     //cout << "another cell: " << island[X-1][Y+1] << endl;
-                    if (X != 2 && Y != 21 && freeW(island, X-1, Y+1)) {
+                    if (X != 0 && Y != 19 && freeW(island, X-1, Y+1)) {
                         starve();
                         if (island[X][Y] == 'A') island[X][Y] = 'K';
                         else if (island[X][Y] == 'B') island[X][Y] = 'w';
@@ -87,7 +87,7 @@ void Wolfess::doMove(char island[][25]){
                 }
                 case 3: {
                     //cout << "another cell: " << island[X][Y+1] << endl;
-                    if (Y != 21 && freeW(island, X, Y+1)) {
+                    if (Y != 19 && freeW(island, X, Y+1)) {
                         starve();
                         if (island[X][Y] == 'A') island[X][Y] = 'K';
                         else if (island[X][Y] == 'B') island[X][Y] = 'w';
@@ -101,7 +101,7 @@ void Wolfess::doMove(char island[][25]){
                 }
                 case 4: {
                     //cout << "another cell: " << island[X+1][Y+1] << endl;
-                    if (X != 21 && Y != 21 && freeW(island, X+1, Y+1)) {
+                    if (X != 19 && Y != 19 && freeW(island, X+1, Y+1)) {
                         starve();
                         if (island[X][Y] == 'A') island[X][Y] = 'K';
                         else if (island[X][Y] == 'B') island[X][Y] = 'w';
@@ -115,7 +115,7 @@ void Wolfess::doMove(char island[][25]){
                 }
                 case 5: {
                     //cout << "another cell: " << island[X+1][Y] << endl;
-                    if (X != 21 && freeW(island, X+1, Y)) {
+                    if (X != 19 && freeW(island, X+1, Y)) {
                         starve();
                         if (island[X][Y] == 'A') island[X][Y] = 'K';
                         else if (island[X][Y] == 'B') island[X][Y] = 'w';
@@ -129,7 +129,7 @@ void Wolfess::doMove(char island[][25]){
                 }
                 case 6: {
                     //cout << "another cell: " << island[X+1][Y-1] << endl;
-                    if (X != 21 && Y != 2 && freeW(island, X+1, Y-1)) {
+                    if (X != 19 && Y != 0 && freeW(island, X+1, Y-1)) {
                         starve();
                         if (island[X][Y] == 'A') island[X][Y] = 'K';
                         else if (island[X][Y] == 'B') island[X][Y] = 'w';
@@ -143,7 +143,7 @@ void Wolfess::doMove(char island[][25]){
                 }
                 case 7: {
                     //cout << "another cell: " << island[X][Y-1] << endl;
-                    if (Y != 2 && freeW(island, X, Y-1)) {
+                    if (Y != 0 && freeW(island, X, Y-1)) {
                         starve();
                         if (island[X][Y] == 'A') island[X][Y] = 'K';
                         else if (island[X][Y] == 'B') island[X][Y] = 'w';
@@ -161,7 +161,7 @@ void Wolfess::doMove(char island[][25]){
     else starve();
 }
 
-void Wolfess::doStep(vector<Rabbit> &rabbits, vector<Wolf>&wolves, char island[][25]) {
+void Wolfess::doStep(vector<Rabbit> &rabbits, vector<Wolf>&wolves, char island[][21]) {
     if (getReproductionAbility() < 10)
             ReproductionAbility += 1;
 

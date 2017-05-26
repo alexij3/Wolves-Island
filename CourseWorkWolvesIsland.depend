@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1495731911 source:f:\labs\courseworkwolvesisland\main.cpp
+1495825359 source:f:\labs\courseworkwolvesisland\main.cpp
 	<iostream>
 	<cstdlib>
 	<conio.h>
@@ -16,7 +16,7 @@
 
 1494856063 f:\labs\courseworkwolvesisland\animal.h
 
-1495458348 f:\labs\courseworkwolvesisland\include\wolf.h
+1495824831 f:\labs\courseworkwolvesisland\include\wolf.h
 	<vector>
 	<string>
 	"Rabbit.h"
@@ -26,21 +26,21 @@
 	<string>
 	<SFML/Graphics.hpp>
 
-1495344496 f:\labs\courseworkwolvesisland\include\rabbit.h
+1495803164 f:\labs\courseworkwolvesisland\include\rabbit.h
 	<vector>
 	"Animal.h"
 
-1495344496 f:\labs\courseworkwolvesisland\include\wolfess.h
+1495803334 f:\labs\courseworkwolvesisland\include\wolfess.h
 	<vector>
 	"TheWolves.h"
 	"Wolf.h"
 
-1495728626 source:f:\labs\courseworkwolvesisland\src\rabbit.cpp
+1495812066 source:f:\labs\courseworkwolvesisland\src\rabbit.cpp
 	"Rabbit.h"
 	<iostream>
 	<cstdlib>
 
-1495729738 source:f:\labs\courseworkwolvesisland\src\wolf.cpp
+1495812548 source:f:\labs\courseworkwolvesisland\src\wolf.cpp
 	<cstdlib>
 	<iostream>
 	"Wolf.h"
@@ -50,7 +50,7 @@
 	<conio.h>
 	<windows.h>
 
-1495733823 source:f:\labs\courseworkwolvesisland\src\wolfess.cpp
+1495812548 source:f:\labs\courseworkwolvesisland\src\wolfess.cpp
 	"Wolfess.h"
 	<iostream>
 	<cstdlib>
@@ -450,7 +450,7 @@
 
 1494853864 source:f:\labs\courseworkwolvesisland\thewolves.cpp
 
-1495344572 f:\labs\courseworkwolvesisland\map.h
+1495801862 f:\labs\courseworkwolvesisland\map.h
 
 1486739997 e:\downloads\mussic\sfml-2.4.2-windows-gcc-4.9.2-tdm-32-bit\sfml-2.4.2\include\sfml\audio.hpp
 	<SFML/System.hpp>
@@ -554,4 +554,8 @@
 1486739997 e:\downloads\mussic\sfml-2.4.2-windows-gcc-4.9.2-tdm-32-bit\sfml-2.4.2\include\sfml\audio\soundfilewriter.hpp
 	<SFML/Audio/Export.hpp>
 	<string>
+
+1495822163 f:\labs\courseworkwolvesisland\menu.h
+	<SFML/Graphics.hpp>
+	<iostream>
 

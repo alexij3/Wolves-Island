@@ -12,13 +12,13 @@
 class Wolfess : public TheWolves{
     public:
         Wolfess(){};
-        Wolfess(char[][25]);
-        Wolfess(int, int, char[][25]);
+        Wolfess(char[][21]);
+        Wolfess(int, int, char[][21]);
 
         bool isReadyToGiveLife;
 
-        void doStep(vector<Rabbit>&, vector<Wolf>&, char[][25]);
-        void doMove(char[][25]);
+        void doStep(vector<Rabbit>&, vector<Wolf>&, char[][21]);
+        void doMove(char[][21]);
 
         ~Wolfess();
 };

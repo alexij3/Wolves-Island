@@ -16,16 +16,16 @@ class Wolfess;
 class Wolf : public TheWolves{
     public:
         Wolf();
-        Wolf(char[][25]);
-        Wolf(int, int, char[][25]);
+        Wolf(char[][21]);
+        Wolf(int, int, char[][21]);
         void eat(){
             Points += 10;
         }
 
         bool isReadyToGiveLife;
 
-        void doStep(vector<Rabbit>&, vector<Wolfess>&, char [][25]);
-        void doMove(char [][25]);
+        void doStep(vector<Rabbit>&, vector<Wolfess>&, char [][21]);
+        void doMove(char [][21]);
         ~Wolf();
 };
 

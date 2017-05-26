@@ -12,8 +12,8 @@ using std::vector;
 
 class Rabbit : public Animal{
     public:
-        Rabbit(char[][25]);
-        Rabbit(int, int, char[][25]);
+        Rabbit(char[][21]);
+        Rabbit(int, int, char[][21]);
 
         void setX(int _x){
             X = _x;
@@ -31,7 +31,7 @@ class Rabbit : public Animal{
             return Y;
         }
 
-        void doStep(const vector<Rabbit>&, char[][25]);
+        void doStep(const vector<Rabbit>&, char[][21]);
 
         bool isReadyToGiveLife;
         bool life;
