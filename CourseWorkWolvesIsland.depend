@@ -1,7 +1,8 @@
 # depslib dependency file v1.0
-1495825359 source:f:\labs\courseworkwolvesisland\main.cpp
+1495869329 source:f:\labs\courseworkwolvesisland\main.cpp
 	<iostream>
 	<cstdlib>
+	<thread>
 	<conio.h>
 	<time.h>
 	"Animal.h"

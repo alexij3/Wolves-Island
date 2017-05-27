@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstdlib>
+#include <thread>
 #include <conio.h>
 #include <time.h>
 #include "Animal.h"
@@ -301,6 +302,7 @@ void Birth(vector <Wolfess> &wolfess, vector <Wolf>&wolves, char island[][21], i
 }
 
 void refreshMap(Sprite &sMap){
+
     window.setActive(true);
     window.clear();
     window.draw(background);
@@ -392,7 +394,6 @@ int main() {
     music.play();
     music.setVolume(5);
     music.setLoop(true);
-    Thread wSound(&w_playSound, 1, 2, 3, wolfess);
     while (window.isOpen()){
     system("cls");
     for (int i = 0; i < HEIGHT; i++){
@@ -430,6 +431,14 @@ int main() {
         //Sleep(300);
         //window.display();
 
+        if (r_size > rabbits.size()){
+            SoundBuffer buffer;
+            buffer.loadFromFile("sounds/rabbit_death.wav");
+            Sound sound(buffer);
+            sound.play();
+            Sleep(600);
+        }
+
         if (w_fixed_size > w_size){
             SoundBuffer buffer;
             buffer.loadFromFile("sounds/wolf_death.wav");
@@ -438,7 +447,6 @@ int main() {
             Sleep(1200);
         }
 
-        wSound.launch();
         if (wf_size < wolfess.size()){
             SoundBuffer buffer;
             buffer.loadFromFile("sounds/wolf_fidget.wav");
@@ -454,13 +462,6 @@ int main() {
             Sleep(3000);
         }
 
-        if (r_size > rabbits.size()){
-            SoundBuffer buffer;
-            buffer.loadFromFile("sounds/rabbit_death.wav");
-            Sound sound(buffer);
-            sound.play();
-            Sleep(600);
-        }
         if (rabbits.size() == 0){
                 cout << "The wolves have eaten all the rabbits!\n";
                 Font font;
@@ -538,20 +539,20 @@ int main() {
         //graphicsThread.launch();
         //Sleep(300);
 
-        if (wf_size < wf_fixed_size){
-            SoundBuffer buffer;
-            buffer.loadFromFile("sounds/wolf_death.wav");
-            Sound sound(buffer);
-            sound.play();
-            Sleep(1200);
-        }
-
         if (r_size > rabbits.size()){
             SoundBuffer buffer;
             buffer.loadFromFile("sounds/rabbit_death.wav");
             Sound sound(buffer);
             sound.play();
             Sleep(600);
+        }
+
+        if (wf_size < wf_fixed_size){
+            SoundBuffer buffer;
+            buffer.loadFromFile("sounds/wolf_death.wav");
+            Sound sound(buffer);
+            sound.play();
+            Sleep(1200);
         }
 
         if (wf_size < wolfess.size()){
